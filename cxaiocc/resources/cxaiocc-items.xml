@@ -20,7 +20,7 @@
 
 	<itemtypes>
 		<itemtype code="CxaiConfig" autocreate="true" generate="true" jaloclass="com.sap.cxai.jalo.CxaiConfig">
-			<deployment table="CxaiConfig" typecode="24050"/>
+			<deployment table="CxaiConfig" typecode="24051"/>
 			<attributes>
 				<attribute type="java.lang.String" qualifier="code">
 					<persistence type="property"/>
@@ -38,6 +38,11 @@
 				</attribute>
 				<attribute type="java.lang.String" qualifier="customCatalogId">
 					<persistence type="property"/>
+					<description>Custom catalogId, if not using default (first) product catalog connected to BaseSite</description>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="customCatalogVersion">
+					<persistence type="property"/>
+					<description>Custom catalogVersion, if not using active catalog for catalogId</description>
 				</attribute>
 			</attributes>
 		</itemtype>

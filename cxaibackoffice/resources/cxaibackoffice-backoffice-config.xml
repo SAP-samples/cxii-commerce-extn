@@ -19,6 +19,7 @@
 				<as:field name="consumedDestinationId" operator="equals" />
 				<as:field name="baseSites" operator="equals" />
 				<as:field name="customCatalogId" operator="equals" />
+				<as:field name="customCatalogVersion" operator="equals" />
 				<as:field name="active" operator="equals" />
 			</as:field-list>
 		</as:advanced-search>
@@ -30,6 +31,7 @@
 			<lv:column qualifier="baseSites" />
 			<lv:column qualifier="consumedDestinationId" />
 			<lv:column qualifier="customCatalogId" />
+			<lv:column qualifier="customCatalogVersion" />
 			<lv:column qualifier="active" />
 		</lv:list-view>
 	</context>
@@ -51,6 +53,7 @@
 					<ea:attribute qualifier="consumedDestination" description="cxai.cxaiConfig.consumedDestination.hint" />
 					<ea:attribute qualifier="consumedDestinationId" description="cxai.cxaiConfig.consumedDestinationId.hint"/>
 					<ea:attribute qualifier="customCatalogId" description="cxai.cxaiConfig.customCatalogId.hint"/>
+					<ea:attribute qualifier="customCatalogVersion" description="cxai.cxaiConfig.customCatalogVersion.hint"/>
 					<ea:attribute qualifier="active" />
 				</ea:section>
 			</ea:tab>
@@ -69,6 +72,7 @@
 						<wz:property qualifier="baseSites" />
 						<wz:property qualifier="consumedDestination" />
 						<wz:property qualifier="customCatalogId" description="hmc.cxai.customCatalogId.hint"/>
+						<wz:property qualifier="customCatalogVersion" description="hmc.cxai.customCatalogVersion.hint"/>
 						<wz:property qualifier="active" />
 					</wz:property-list>
 				</wz:content>

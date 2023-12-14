@@ -6,10 +6,16 @@ package com.sap.cxai.populator;
 import de.hybris.platform.apiregistryservices.model.AbstractCredentialModel;
 import de.hybris.platform.apiregistryservices.model.ConsumedDestinationModel;
 import de.hybris.platform.apiregistryservices.model.ConsumedOAuthCredentialModel;
+import de.hybris.platform.catalog.CatalogService;
+import de.hybris.platform.catalog.model.CatalogModel;
 import de.hybris.platform.converters.Populator;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
+import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.site.BaseSiteService;
 
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.sap.cxai.CxaiConfigData;
@@ -24,14 +30,19 @@ public class CxaiConfigPopulator implements Populator<CxaiConfigModel, CxaiConfi
 	static final Logger LOGGER = Logger.getLogger(CxaiConfigPopulator.class);
 
 	private final FlexibleSearchService flexibleSearchService;
+	private final BaseSiteService baseSiteService;
+	private final CatalogService catalogService;
 
 	/**
 	 * @param flexibleSearchService
 	 */
-	public CxaiConfigPopulator(final FlexibleSearchService flexibleSearchService)
+	public CxaiConfigPopulator(final FlexibleSearchService flexibleSearchService, final CatalogService catalogService,
+			final BaseSiteService baseSiteService)
 	{
 		super();
 		this.flexibleSearchService = flexibleSearchService;
+		this.baseSiteService = baseSiteService;
+		this.catalogService = catalogService;
 	}
 
 
@@ -40,7 +51,7 @@ public class CxaiConfigPopulator implements Populator<CxaiConfigModel, CxaiConfi
 	{
 		target.setActive(source.isActive());
 		target.setCode(source.getCode());
-		target.setCustomCatalogId(source.getCustomCatalogId());
+		this.populateCatalogData(source, target);
 
 		final ConsumedDestinationModel consumedDestination = source.getConsumedDestination();
 		if (consumedDestination != null)
@@ -74,4 +85,81 @@ public class CxaiConfigPopulator implements Populator<CxaiConfigModel, CxaiConfi
 		}
 	}
 
+	protected void populateCatalogData(final CxaiConfigModel source, final CxaiConfigData target)
+	{
+		CatalogModel catalog = null;
+
+		if (StringUtils.isNotBlank(source.getCustomCatalogId()))
+		{
+			target.setCatalogId(source.getCustomCatalogId());
+		}
+		else
+		{
+			catalog = this.getDefaultCatalog();
+			target.setCatalogId(catalog == null ? null : catalog.getId());
+		}
+
+		if (StringUtils.isNotBlank(source.getCustomCatalogVersion()))
+		{
+			target.setCatalogVersion(source.getCustomCatalogVersion());
+		}
+		else
+		{
+			target.setCatalogVersion(getActiveCatalogVersion(catalog, target.getCatalogId()));
+		}
+	}
+
+	/**
+	 * @param catalogId
+	 * @return
+	 */
+	private String getActiveCatalogVersion(CatalogModel catalog, final String catalogId)
+	{
+		if (catalog == null && catalogId == null)
+		{
+			return null;
+		}
+
+		try
+		{
+			if (catalog == null)
+			{
+				catalog = catalogService.getCatalogForId(catalogId);
+			}
+
+			if (catalog.getActiveCatalogVersion() != null)
+			{
+				return catalog.getActiveCatalogVersion().getVersion();
+			}
+
+			LOGGER.warn("Catalog " + catalogId + " has no active version, falling back to first catalog version");
+			if (catalog.getCatalogVersions().size() > 0)
+			{
+				return IterableUtils.get(catalog.getCatalogVersions(), 0).getVersion();
+			}
+			LOGGER.warn("Catalog " + catalogId + " doesn't have any versions, cant determine catalog version for configuration");
+		}
+		catch (final UnknownIdentifierException ex)
+		{
+			LOGGER.warn("Catalog " + catalogId + " doesn't exist in the system, cant determine catalog version for configuration",
+					ex);
+		}
+
+		return null;
+	}
+
+
+	protected CatalogModel getDefaultCatalog()
+	{
+		try
+		{
+			return baseSiteService.getCurrentBaseSite().getStores().get(0).getCatalogs().get(0);
+		}
+		catch (final ArrayIndexOutOfBoundsException ex)
+		{
+			LOGGER.warn("Can't determine default catalog for site " + baseSiteService.getCurrentBaseSite().getUid()
+					+ " - fix site config or set customCatalogId in configuration", ex);
+			return null;
+		}
+	}
 }

@@ -12,7 +12,8 @@
 		<property name="code" type="String"/>
 		<property name="consumedDestinationId" type="String"/>
 		<property name="active" type="boolean"/>
-		<property name="customCatalogId" type="String"/>
+		<property name="catalogId" type="String"/>
+		<property name="catalogVersion" type="String"/>
 		<!-- cons.dest. properties -->
 		<property name="authUrl" type="String"/>
 		<property name="tenantUrl" type="String"/>

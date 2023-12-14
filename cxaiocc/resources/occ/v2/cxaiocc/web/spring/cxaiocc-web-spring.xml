@@ -17,7 +17,7 @@
 		<property name="levelMapping">
 			<map>
 				<entry key="BASIC"
-					value="code,active,tenantUrl,customCatalogId" />
+					value="code,active,tenantUrl,catalogId,catalogVersion" />
 				<entry key="DEFAULT" value="BASIC" />
 				<entry key="FULL"
 					value="DEFAULT,consumedDestinationId,authUrl,clientId,clientSecret" />
