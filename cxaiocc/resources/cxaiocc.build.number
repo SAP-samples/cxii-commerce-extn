@@ -1,0 +1,11 @@
+#Ant properties
+#Fri Mar 03 02:12:10 UTC 2023
+version.api=2211
+vendor=hybris
+group.id=de.hybris.platform
+name=cxaiocc
+description=cxaiocc
+builddate=20230303 0211
+releasedate=20230303 0211
+version=2211.4
+module.name=platform-module

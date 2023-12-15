@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved
+-->
+<config xmlns="http://www.hybris.com/cockpit/config">
+
+	<context component="explorer-tree" merge-by="module">
+		<et:explorer-tree xmlns:et="http://www.hybris.com/cockpitng/config/explorertree">
+			<et:navigation-node id="cxai.explorerTree.root">
+				<et:type-node id="CxaiConfig" code="CxaiConfig" />
+			</et:navigation-node>
+		</et:explorer-tree>
+	</context>
+
+	<context component="advanced-search" type="CxaiConfig">
+		<as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<as:field-list>
+				<as:field name="code" operator="equals" />
+				<as:field name="consumedDestinationId" operator="equals" />
+				<as:field name="baseSites" operator="equals" />
+				<as:field name="customCatalogId" operator="equals" />
+				<as:field name="customCatalogVersion" operator="equals" />
+				<as:field name="active" operator="equals" />
+			</as:field-list>
+		</as:advanced-search>
+	</context>
+
+	<context component="listview" type="CxaiConfig">
+		<lv:list-view xmlns:lv="http://www.hybris.com/cockpitng/component/listView">
+			<lv:column qualifier="code" />
+			<lv:column qualifier="baseSites" />
+			<lv:column qualifier="consumedDestinationId" />
+			<lv:column qualifier="customCatalogId" />
+			<lv:column qualifier="customCatalogVersion" />
+			<lv:column qualifier="active" />
+		</lv:list-view>
+	</context>
+
+	<context component="base" type="CxaiConfig">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>'CXAI Configuration [' + code + ']'</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context component="editor-area" type="CxaiConfig">
+		<ea:editorArea xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea">
+			<ea:tab name="cxai.cxaiConfig.editorArea.tab.basic">
+				<ea:section name="cxai.cxaiConfig.editorArea.section.basic">
+					<ea:attribute qualifier="code" />
+					<ea:attribute qualifier="baseSites" />
+					<ea:attribute qualifier="consumedDestination" description="cxai.cxaiConfig.consumedDestination.hint" />
+					<ea:attribute qualifier="consumedDestinationId" description="cxai.cxaiConfig.consumedDestinationId.hint"/>
+					<ea:attribute qualifier="customCatalogId" description="cxai.cxaiConfig.customCatalogId.hint"/>
+					<ea:attribute qualifier="customCatalogVersion" description="cxai.cxaiConfig.customCatalogVersion.hint"/>
+					<ea:attribute qualifier="active" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context component="create-wizard" type="CxaiConfig">
+		<wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="CxAiConfigWizard" title="create.title(ctx.TYPE_CODE)">
+			<wz:prepare id="wizPrepare">
+				<wz:initialize property="newItem" type="CxaiConfig"/>
+			</wz:prepare>
+			<wz:step id="step1" label="cxai.cxaiConfig.wizard.step1.label">
+				<wz:content id="step1.content">
+					<wz:property-list root="newItem">
+						<wz:property qualifier="code" />
+						<wz:property qualifier="baseSites" />
+						<wz:property qualifier="consumedDestination" />
+						<wz:property qualifier="customCatalogId" description="hmc.cxai.customCatalogId.hint"/>
+						<wz:property qualifier="customCatalogVersion" description="hmc.cxai.customCatalogVersion.hint"/>
+						<wz:property qualifier="active" />
+					</wz:property-list>
+				</wz:content>
+				<wz:navigation id="step1.navigation">
+					<wz:cancel/>
+					<wz:done visible="!#empty(newItem.code)">
+						<wz:save property="newItem"/>
+					</wz:done>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
+	</context>
+</config>
