@@ -12,7 +12,7 @@ The [Reuse Tool](https://reuse.software/) must be used for your samples project.
 3. The README.md file (this file):
 Please edit this file as it is the primary description file for your project. You can find some placeholder titles for sections below.
 
-# [Title]
+# CXII-COMMERCE-EXTN
 <!-- Please include descriptive title -->
 
 <!--- Register repository https://api.reuse.software/register, then add REUSE badge:
@@ -20,17 +20,34 @@ Please edit this file as it is the primary description file for your project. Yo
 -->
 
 ## Description
-<!-- Please include SEO-friendly description -->
+CXII Commerce extension which is required to configure the tenant credentials in Commerce Backoffice.
 
 ## Requirements
+SAP Commerce Environment
+SAP Commerce Administration Access
 
 ## Download and Installation
+1. Clone the CXAI extension repo `https://github.com/SAP-samples/cxii-commerce-extn` to the commerce extensions.
+    Ex: `hybris/bin/custom/<storefront-app>/cxai`
+2. Navigate to `hybris/config` folder and add the following entries to the `localextensions.xml` file
+    a. <extension name='cxaibackoffice' />
+    b. <extension name='cxaiocc' />
+3. Add the following entries to `bin/custom/<app>/ci/recipes/cx-spa/build.gradle` file. These entries will help build the extension sources
+    a. extName 'cxaibackoffice'
+    b. extName 'cxaiocc'
+4. Now follow the build steps and deployment steps as per the instructions for the `storefront` app deployed in commerce `hybris/bin/custom/<app>`
 
+## Configuration
+1. Once the build and deployment is successful, restart the commerce server.
+2. Now navigate to backoffice/administration cockpit.
+3. Click on `CX AI` extension in left navigation tree.
+4. Create the configuration with the tenant's Consumed Destination and OAuth details.
+5. Custome CatalogId is optional.
 ## Known Issues
 <!-- You may simply state "No known issues. -->
 
 ## How to obtain support
-[Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
+[Create an issue](https://github.com/SAP-samples/cxii-commerce-extn/issues) in this repository if you find a bug or have questions about the content.
  
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
