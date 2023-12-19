@@ -1,4 +1,4 @@
-# SAP CX Intelligene & Incubation Commerce Extension
+# SAP CX Intelligence & Incubation Commerce Extension
 <!-- Please include descriptive title -->
 
 <!--- Register repository https://api.reuse.software/register, then add REUSE badge:
@@ -6,7 +6,7 @@
 -->
 
 ## Description
-SAP CX Intelligene & Incubation (CXII) Commerce extension is required to configure the tenant credentials in Commerce Backoffice.
+SAP CX Intelligence & Incubation (CXII) Commerce extension is required to configure the tenant credentials in Commerce Backoffice.
 This is required for enabling configurations for CXII UI components like SAP-samples/cxii-visual-search-ui-component
 
 ## Requirements
