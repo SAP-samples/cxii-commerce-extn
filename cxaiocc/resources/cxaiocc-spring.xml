@@ -31,4 +31,8 @@
     <alias name="defaultCxaiConfigService" alias="cxaiConfigService"/>
     <bean id="defaultCxaiConfigService" class="com.sap.cxai.service.impl.DefaultCxaiConfigService"></bean>
 	<bean id="consumedDestinationAttributeHandler" class="com.sap.cxai.dynamicattribute.ConsumedDestinationAttributeHandler"></bean>
+	
+    <alias name="defaultCxaiImageService" alias="cxaiImageService"/>
+    <bean id="defaultCxaiImageService" class="com.sap.cxai.service.impl.DefaultCxAiImageService">
+    </bean>
 </beans>

@@ -1,12 +1,13 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at 14-Dec-2023, 8:39:50 pm                     ---
+ * --- Generated at 03-Mar-2024, 10:12:46 am                    ---
  * ----------------------------------------------------------------
  */
 package com.sap.cxai.jalo;
 
 import com.sap.cxai.constants.CxaioccConstants;
+import com.sap.cxai.jalo.CxAiMedia;
 import com.sap.cxai.jalo.CxaiConfig;
 import de.hybris.platform.basecommerce.jalo.site.BaseSite;
 import de.hybris.platform.directpersistence.annotation.SLDSafe;
@@ -77,6 +78,32 @@ public class CxaioccManager extends Extension
 	public CxaiConfig createCxaiConfig(final Map attributeValues)
 	{
 		return createCxaiConfig( getSession().getSessionContext(), attributeValues );
+	}
+	
+	public CxAiMedia createCxAiMedia(final SessionContext ctx, final Map attributeValues)
+	{
+		try
+		{
+			ComposedType type = getTenant().getJaloConnection().getTypeManager().getComposedType("CxAiMedia");
+			return (CxAiMedia)type.newInstance( ctx, attributeValues );
+		}
+		catch( JaloGenericCreationException e)
+		{
+			final Throwable cause = e.getCause();
+			throw (cause instanceof RuntimeException ?
+			(RuntimeException)cause
+			:
+			new JaloSystemException( cause, cause.getMessage(), e.getErrorCode() ) );
+		}
+		catch( JaloBusinessException e )
+		{
+			throw new JaloSystemException( e ,"error creating CxAiMedia : "+e.getMessage(), 0 );
+		}
+	}
+	
+	public CxAiMedia createCxAiMedia(final Map attributeValues)
+	{
+		return createCxAiMedia( getSession().getSessionContext(), attributeValues );
 	}
 	
 	/**

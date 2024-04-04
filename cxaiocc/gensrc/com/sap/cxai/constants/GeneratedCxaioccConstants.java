@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at 14-Dec-2023, 8:39:50 pm                     ---
+ * --- Generated at 03-Mar-2024, 10:12:46 am                    ---
  * ----------------------------------------------------------------
  */
 package com.sap.cxai.constants;
@@ -17,6 +17,7 @@ public class GeneratedCxaioccConstants
 	public static class TC
 	{
 		public static final String CXAICONFIG = "CxaiConfig".intern();
+		public static final String CXAIMEDIA = "CxAiMedia".intern();
 	}
 	public static class Attributes
 	{
