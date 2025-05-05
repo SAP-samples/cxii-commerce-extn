@@ -2,7 +2,8 @@
 <!--
  Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved
 -->
-<config xmlns="http://www.hybris.com/cockpit/config">
+<config xmlns="http://www.hybris.com/cockpit/config"
+	xmlns:y="http://www.hybris.com/cockpit/config/hybris">
 
 	<context component="explorer-tree" merge-by="module">
 		<et:explorer-tree xmlns:et="http://www.hybris.com/cockpitng/config/explorertree">
@@ -23,6 +24,13 @@
 				<as:field name="active" operator="equals" />
 			</as:field-list>
 		</as:advanced-search>
+	</context>
+
+	<context component="simple-search" type="CxaiConfig">
+		<ss:simple-search xmlns:ss="http://www.hybris.com/cockpitng/config/simplesearch">
+			<ss:field name="code" />
+			<ss:sort-field name="code" />
+		</ss:simple-search>
 	</context>
 
 	<context component="listview" type="CxaiConfig">

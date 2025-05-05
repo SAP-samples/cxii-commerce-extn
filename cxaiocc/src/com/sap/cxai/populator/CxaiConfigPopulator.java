@@ -8,6 +8,7 @@ import de.hybris.platform.apiregistryservices.model.ConsumedDestinationModel;
 import de.hybris.platform.apiregistryservices.model.ConsumedOAuthCredentialModel;
 import de.hybris.platform.catalog.CatalogService;
 import de.hybris.platform.catalog.model.CatalogModel;
+import de.hybris.platform.cms2.model.site.CMSSiteModel;
 import de.hybris.platform.converters.Populator;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
@@ -79,7 +80,7 @@ public class CxaiConfigPopulator implements Populator<CxaiConfigModel, CxaiConfi
 						"Invalid CXAI config - invalid credential type, should be ConsumedOAuthCredentialModel: " + abstractCredential);
 			}
 		}
-		else
+		else if (source.getConsumedDestinationId() != null)
 		{
 			LOGGER.warn("Invalid CXAI config - can't find consumed destination " + source.getConsumedDestinationId());
 		}
@@ -153,7 +154,17 @@ public class CxaiConfigPopulator implements Populator<CxaiConfigModel, CxaiConfi
 	{
 		try
 		{
-			return baseSiteService.getCurrentBaseSite().getStores().get(0).getCatalogs().get(0);
+			final var site = baseSiteService.getCurrentBaseSite();
+			if (site != null)
+			{
+				final var defaultProductCatalog = site instanceof CMSSiteModel ? ((CMSSiteModel) site).getDefaultCatalog() : null;
+				return defaultProductCatalog != null ? defaultProductCatalog : site.getStores().get(0).getCatalogs().get(0);
+			}
+			else
+			{
+				LOGGER.debug("No current basesite - can't determine default catalog");
+				return null;
+			}
 		}
 		catch (final ArrayIndexOutOfBoundsException ex)
 		{

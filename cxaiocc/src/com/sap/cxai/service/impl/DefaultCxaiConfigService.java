@@ -9,7 +9,9 @@ import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.site.BaseSiteService;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -48,16 +50,24 @@ public class DefaultCxaiConfigService implements CxaiConfigService
 
 		final BaseSiteModel baseSite = baseSiteService.getCurrentBaseSite();
 
-		final Optional<CxaiConfigModel> config = flexibleSearchService.getModelsByExample(example).stream() //
+		final List<CxaiConfigModel> configs = flexibleSearchService.getModelsByExample(example).stream() //
 				.filter(c -> c.getBaseSites().contains(baseSite)) //
-				.findFirst();
+				.collect(Collectors.toList());
 
-		if (config.isPresent())
+		if (configs.size() == 1)
 		{
-			return Optional.of(cxaiConfigConverter.convert(config.get()));
+			final CxaiConfigModel config = configs.get(0);
+			return Optional.of(cxaiConfigConverter.convert(config));
 		}
-
-		return Optional.empty();
+		else if (configs.isEmpty())
+		{
+			return Optional.empty();
+		}
+		else
+		{
+			throw new IllegalStateException("Found more than one active CXAI config for current site: "
+					+ configs.stream().map(CxaiConfigModel::getCode).collect(Collectors.joining(",")));
+		}
 	}
 
 	protected void fillExtraConfigFilters(final CxaiConfigModel example)
@@ -69,7 +79,6 @@ public class DefaultCxaiConfigService implements CxaiConfigService
 	public CxaiConfigData getConfigForCode(final String code) throws ModelNotFoundException
 	{
 		final CxaiConfigModel example = new CxaiConfigModel();
-		example.setActive(true);
 		example.setCode(code);
 
 		final CxaiConfigModel config = flexibleSearchService.getModelByExample(example);
