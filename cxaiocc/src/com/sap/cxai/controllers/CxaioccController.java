@@ -67,6 +67,11 @@ public class CxaioccController
 		try
 		{
 			final var config = cxaiConfigService.getConfigForCode(code);
+			if (!config.isActive())
+			{
+				throw new ModelNotFoundException(code);
+			}
+
 			final CxaiConfigData occConfig = dataMapper.map(config, CxaiConfigData.class, fields);
 
 			return ResponseEntity.ok(cleanCredentials(occConfig));

@@ -11,10 +11,12 @@
 
 	<relations>
 		<relation code="BaseSite2CxaiConfig" localized="false">
+			<deployment table="BaseSite2CxaiConfig" typecode="24050"/>
+
 			<sourceElement type="BaseSite" qualifier="baseSites" cardinality="many" collectiontype="set">
 				<modifiers optional="false" />
 			</sourceElement>
-			<targetElement type="CxaiConfig" qualifier="cxaiConfig" cardinality="one" />
+			<targetElement type="CxaiConfig" qualifier="cxaiConfig" cardinality="many" />
 		</relation>
 	</relations>
 

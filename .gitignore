@@ -1,0 +1,13 @@
+eclipsebin
+gensrc
+classes
+*.iml
+build.xml
+extensioninfo.xsd
+beans.xsd
+items.xsd
+*-testclasses.xml
+platformhome.properties
+showcasecockpit/platformhome.properties
+*_bof.jar
+.angular/

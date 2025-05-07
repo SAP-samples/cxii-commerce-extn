@@ -15,7 +15,13 @@ import com.sap.cxai.CxaiConfigData;
  */
 public interface CxaiConfigService
 {
+	/**
+	 * Return active config for current site
+	 */
 	Optional<CxaiConfigData> getConfigForCurrentSite();
 
+	/**
+	 * Return config with specific code, regardless of active flag
+	 */
 	CxaiConfigData getConfigForCode(final String code) throws ModelNotFoundException;
 }
