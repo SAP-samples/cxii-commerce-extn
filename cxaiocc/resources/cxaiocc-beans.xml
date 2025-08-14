@@ -20,5 +20,18 @@
 		<property name="clientId" type="String"/>
 		<property name="clientSecret" type="String"/>
 	</bean>
+	
+	<bean class="com.sap.cxai.CxaiConfigWsDTO">
+		<property name="code" type="String"/>
+		<property name="consumedDestinationId" type="String"/>
+		<property name="active" type="boolean"/>
+		<property name="catalogId" type="String"/>
+		<property name="catalogVersion" type="String"/>
+		<!-- cons.dest. properties -->
+		<property name="authUrl" type="String"/>
+		<property name="tenantUrl" type="String"/>
+		<property name="clientId" type="String"/>
+		<property name="clientSecret" type="String"/>
+	</bean>
 
 </beans>
