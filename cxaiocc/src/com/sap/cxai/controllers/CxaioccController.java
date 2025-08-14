@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sap.cxai.CxaiConfigData;
+import com.sap.cxai.CxaiConfigWsDTO;
 import com.sap.cxai.service.CxaiConfigService;
 
 
@@ -41,7 +42,7 @@ public class CxaioccController
 
 	@GetMapping(
 	{ "/config" })
-	public ResponseEntity<CxaiConfigData> getConfig(@ApiFieldsParam
+	public ResponseEntity<CxaiConfigWsDTO> getConfig(@ApiFieldsParam
 	@RequestParam(defaultValue = DEFAULT_FIELD_SET)
 	final String fields)
 	{
@@ -49,7 +50,7 @@ public class CxaioccController
 
 		if (config.isPresent())
 		{
-			final CxaiConfigData occConfig = dataMapper.map(config.get(), CxaiConfigData.class, fields);
+			final var occConfig = dataMapper.map(config.get(), CxaiConfigWsDTO.class, fields);
 			return ResponseEntity.ok(cleanCredentials(occConfig));
 		}
 
@@ -59,7 +60,7 @@ public class CxaioccController
 
 	@GetMapping(
 	{ "/config/{code}" })
-	public ResponseEntity<CxaiConfigData> getConfigForCode(@PathVariable
+	public ResponseEntity<CxaiConfigWsDTO> getConfigForCode(@PathVariable
 	final String code, @ApiFieldsParam
 	@RequestParam(defaultValue = DEFAULT_FIELD_SET)
 	final String fields)
@@ -72,7 +73,7 @@ public class CxaioccController
 				throw new ModelNotFoundException(code);
 			}
 
-			final CxaiConfigData occConfig = dataMapper.map(config, CxaiConfigData.class, fields);
+			final var occConfig = dataMapper.map(config, CxaiConfigWsDTO.class, fields);
 
 			return ResponseEntity.ok(cleanCredentials(occConfig));
 		}
@@ -83,7 +84,7 @@ public class CxaioccController
 
 	}
 
-	protected CxaiConfigData cleanCredentials(final CxaiConfigData config)
+	protected CxaiConfigWsDTO cleanCredentials(final CxaiConfigWsDTO config)
 	{
 		final boolean disableCred = configurationService.getConfiguration().getBoolean("cxai.config.disableReturnCredentials",
 				false);
