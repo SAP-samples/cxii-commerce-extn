@@ -87,7 +87,7 @@ public class CxaioccController
 	protected CxaiConfigWsDTO cleanCredentials(final CxaiConfigWsDTO config)
 	{
 		final boolean disableCred = configurationService.getConfiguration().getBoolean("cxai.config.disableReturnCredentials",
-				false);
+				true);
 		if (disableCred)
 		{
 			config.setClientSecret(null);
