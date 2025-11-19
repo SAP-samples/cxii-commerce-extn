@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<relations>
+		<relation code="BaseSite2CxaiConfig" localized="false">
+			<deployment table="BaseSite2CxaiConfig" typecode="24050"/>
+
+			<sourceElement type="BaseSite" qualifier="baseSites" cardinality="many" collectiontype="set">
+				<modifiers optional="false" />
+			</sourceElement>
+			<targetElement type="CxaiConfig" qualifier="cxaiConfig" cardinality="many" />
+		</relation>
+	</relations>
+
+	<itemtypes>
+		<itemtype code="CxaiConfig" autocreate="true" generate="true" jaloclass="com.sap.cxai.jalo.CxaiConfig">
+			<deployment table="CxaiConfig" typecode="24051"/>
+			<attributes>
+				<attribute type="java.lang.String" qualifier="code">
+					<persistence type="property"/>
+					<modifiers unique="true" optional="false"/>
+				</attribute>
+				<attribute type="ConsumedDestination" qualifier="consumedDestination">
+					<persistence type="dynamic" attributeHandler="consumedDestinationAttributeHandler"/>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="consumedDestinationId">
+					<persistence type="property"/>
+				</attribute>
+				<attribute type="boolean" qualifier="active">
+					<persistence type="property"/>
+					<defaultvalue>java.lang.Boolean.TRUE</defaultvalue>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="customCatalogId">
+					<persistence type="property"/>
+					<description>Custom catalogId, if not using default (first) product catalog connected to BaseSite</description>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="customCatalogVersion">
+					<persistence type="property"/>
+					<description>Custom catalogVersion, if not using active catalog for catalogId</description>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<itemtype code="CxAiMedia" extends="CatalogUnawareMedia" autocreate="true" generate="true">
+			<attributes>
+				<attribute type="java.lang.String" qualifier="externalId">
+					<description>If uploaded to external system, this is external system id</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="externalURL">
+					<persistence type="property"/>
+				</attribute>
+				<attribute type="java.util.Date" qualifier="externalURLExpiration">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
+	
+</items>

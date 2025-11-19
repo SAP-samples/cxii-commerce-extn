@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <alias name="defaultCxaiConfigConverter" alias="cxaiConfigConverter"/>
+    <bean id="defaultCxaiConfigConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.sap.cxai.CxaiConfigData"/>
+        <property name="populators">
+            <list>
+                <ref bean="cxaiConfigPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultCxaiConfigPopulator" alias="cxaiConfigPopulator"/>
+    <bean id="defaultCxaiConfigPopulator" class="com.sap.cxai.populator.CxaiConfigPopulator"/>
+
+    <alias name="defaultCxaiConfigService" alias="cxaiConfigService"/>
+    <bean id="defaultCxaiConfigService" class="com.sap.cxai.service.impl.DefaultCxaiConfigService"></bean>
+	<bean id="consumedDestinationAttributeHandler" class="com.sap.cxai.dynamicattribute.ConsumedDestinationAttributeHandler"></bean>
+	
+    <alias name="defaultCxaiImageService" alias="cxaiImageService"/>
+    <bean id="defaultCxaiImageService" class="com.sap.cxai.service.impl.DefaultCxAiImageService">
+    </bean>
+</beans>
