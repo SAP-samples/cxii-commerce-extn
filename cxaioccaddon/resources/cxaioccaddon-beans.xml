@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="com.sap.cxai.CxaiConfigData">
+		<property name="code" type="String"/>
+		<property name="consumedDestinationId" type="String"/>
+		<property name="active" type="boolean"/>
+		<property name="catalogId" type="String"/>
+		<property name="catalogVersion" type="String"/>
+		<!-- cons.dest. properties -->
+		<property name="authUrl" type="String"/>
+		<property name="tenantUrl" type="String"/>
+		<property name="clientId" type="String"/>
+		<property name="clientSecret" type="String"/>
+	</bean>
+	
+	<bean class="com.sap.cxai.CxaiConfigWsDTO">
+		<property name="code" type="String"/>
+		<property name="consumedDestinationId" type="String"/>
+		<property name="active" type="boolean"/>
+		<property name="catalogId" type="String"/>
+		<property name="catalogVersion" type="String"/>
+		<!-- cons.dest. properties -->
+		<property name="authUrl" type="String"/>
+		<property name="tenantUrl" type="String"/>
+		<property name="clientId" type="String"/>
+		<property name="clientSecret" type="String"/>
+	</bean>
+
+</beans>

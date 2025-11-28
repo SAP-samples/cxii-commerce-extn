@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+	<import resource="occ-extension-web-spring.xml"/>
+    <context:component-scan base-package="com.sap.cxai.controllers"/>
+
+	<!-- Cache manager for addon -->
+
+	<alias name="defaultCxaioccaddonCacheManager" alias="cxaioccaddonCacheManager"/>
+	<bean id="defaultCxaioccaddonCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="cxaioccaddonEhcache"/>
+	</bean>
+
+	<alias name="defaultCxaioccaddonEhcache" alias="cxaioccaddonEhcache"/>
+	<bean id="defaultCxaioccaddonEhcache" class="de.hybris.platform.webservicescommons.cache.TenantAwareEhCacheManagerFactoryBean">
+		<property name="cacheNamePrefix" value="cxaioccaddonCache_"/>
+		<property name="configLocation" value="/WEB-INF/cache/addons/cxaioccaddon/ehcache.xml"/>
+	</bean>
+
+	<bean depends-on="wsCacheManagerList" parent="listMergeDirective">
+		<property name="add" ref="cxaioccaddonCacheManager"/>
+	</bean>
+
+	<bean parent="fieldSetLevelMapping"
+		id="cxAiConfigFieldSetLevelMapping">
+		<property name="dtoClass" value="com.sap.cxai.CxaiConfigWsDTO" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					value="code,active,tenantUrl,catalogId,catalogVersion" />
+				<entry key="DEFAULT" value="BASIC" />
+				<entry key="FULL"
+					value="DEFAULT,consumedDestinationId,authUrl,clientId,clientSecret" />
+			</map>
+		</property>
+	</bean>
+</beans>

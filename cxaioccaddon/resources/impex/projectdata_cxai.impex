@@ -1,0 +1,16 @@
+# RETENTION RULE
+INSERT_UPDATE AfterRetentionCleanupRule; code[unique = true]  ; retirementItemType(code); itemFilterExpression; actionReference          ; retentionTimeSeconds; retirementDateAttribute(enclosingType(code), qualifier)
+                                       ; cxaiMediaCleanupRule ; CxAiMedia               ;                     ; basicRemoveCleanupAction ; 604800              ; CxAiMedia:modifiedtime
+
+# JOB
+INSERT_UPDATE RetentionJob; code[unique = true]   ; retentionRule(code); batchSize
+                          ; cxaiMediaRetentionJob ; cxaiMediaCleanupRule ; 100
+
+# CRON JOB
+INSERT_UPDATE CronJob; code[unique = true]       ; job(code); sessionLanguage(isoCode)[default = en]
+                     ; cxaiMediaRetentionCronJob ; cxaiMediaRetentionJob ;
+
+# Trigger run every 3am
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; cxaiMediaRetentionCronJob   ; 0 ; 0 ; 3 ; -1 ; -1 ; -1 ; true ; true ; -1
+                     

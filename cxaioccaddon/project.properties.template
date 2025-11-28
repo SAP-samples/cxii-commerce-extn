@@ -1,0 +1,17 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+# you can put key/value pairs here.
+# Use Config.getParameter(..) to retrieve the values during runtime.
+
+cxaioccaddon.key=value
+
+# Specifies the location of the spring context file added automatically to the global platform application context.
+cxaioccaddon.application-context=cxaioccaddon-spring.xml
+
+# Specifies the location of the spring context file which will be added to commerce web services web context
+ycommercewebservices.additionalWebSpringConfigs.cxaioccaddon=classpath:/cxaioccaddon/web/spring/cxaioccaddon-web-spring.xml
+
+#Use for generating static swagger documentation
+cxaioccaddon.documentation.static.generate=true
+ext.cxaioccaddon.extension.webmodule.webroot=/rest/v2
