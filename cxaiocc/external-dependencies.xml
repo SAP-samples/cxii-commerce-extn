@@ -8,4 +8,8 @@
 	<artifactId>cxaiocc</artifactId>
 	<version>2211.4</version>
 	<packaging>jar</packaging>
+	
+	<properties>
+		<maven.compiler.release>21</maven.compiler.release>
+	</properties>
 </project>

@@ -6,7 +6,7 @@ import de.hybris.platform.commercewebservicescommons.dto.product.ImageWsDTO;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;

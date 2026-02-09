@@ -11,7 +11,7 @@ import de.hybris.platform.webservicescommons.swagger.ApiFieldsParam;
 
 import java.util.Optional;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
